@@ -36,6 +36,7 @@ public class WebConfiguration {
                 .build();
     }
 
+    // event fired on application start
     @EventListener
         public void onApplicationEvent (ContextRefreshedEvent event) {
             System.out.print("context refreshed event fired: ");

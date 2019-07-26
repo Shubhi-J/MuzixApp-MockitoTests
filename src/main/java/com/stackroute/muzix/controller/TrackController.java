@@ -3,7 +3,7 @@ package com.stackroute.muzix.controller;
 import com.stackroute.muzix.domain.Track;
 import com.stackroute.muzix.exception.GlobalExceptionHandler;
 import com.stackroute.muzix.exception.TrackAlreadyExistException;
-import com.stackroute.muzix.exception.TrackNotFoundExeption;
+import com.stackroute.muzix.exception.TrackNotFoundException;
 import com.stackroute.muzix.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,13 +30,9 @@ public class TrackController extends GlobalExceptionHandler {
     @PostMapping("/track")
     public ResponseEntity<?> saveTrack(@RequestBody Track track) throws TrackAlreadyExistException{
         ResponseEntity responseEntity;
-    //  try{
           // save track
           trackService.saveTrack(track);
           responseEntity=new ResponseEntity<String>("Successfully saved", HttpStatus.CREATED);
-      //} catch (TrackAlreadyExistException ex){
-       //   responseEntity=new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
-     // }
         // return result
         return responseEntity;
     }
@@ -50,15 +46,11 @@ public class TrackController extends GlobalExceptionHandler {
 
     // method to get a specific track with endpoint track/{id}
     @GetMapping("/track/{id}")
-    public ResponseEntity<?> getTrackById(@PathVariable int id) throws TrackNotFoundExeption {
+    public ResponseEntity<?> getTrackById(@PathVariable int id) throws TrackNotFoundException {
         ResponseEntity responseEntity;
         // get track by id
-     //   try{
             responseEntity= new ResponseEntity<Track>(trackService.getTrackById(id),HttpStatus.OK);
-            // catch track not found exception
-    //} catch (TrackNotFoundExeption ex){
-      //      responseEntity=new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
-        //}
+        // return response
         return responseEntity;
     }
 
@@ -72,13 +64,9 @@ public class TrackController extends GlobalExceptionHandler {
     @PutMapping("/track")
     public ResponseEntity<?> updateTrack(@RequestBody Track track){
         ResponseEntity responseEntity;
-      //  try{
             // update track
             trackService.updateTrack(track);
             responseEntity=new ResponseEntity<String>("Successfully updated", HttpStatus.OK);
-       // } catch (Exception e){
-         //   responseEntity=new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
-       // }
         // return success message
         return responseEntity;
     }
@@ -90,5 +78,14 @@ public class TrackController extends GlobalExceptionHandler {
         // get track by name
         responseEntity= new ResponseEntity<Track>(trackService.searchTrackByName(name),HttpStatus.OK);
     return responseEntity;
+    }
+
+    // method to get a specific track with endpoint trackByName/{name}
+    @GetMapping("/topTrack")
+    public ResponseEntity<?> getTopTracks() {
+        ResponseEntity responseEntity;
+        // get track by name
+        return new ResponseEntity<List<Track>>(trackService.getTopTracks(),HttpStatus.OK);
+       // return responseEntity;
     }
 }

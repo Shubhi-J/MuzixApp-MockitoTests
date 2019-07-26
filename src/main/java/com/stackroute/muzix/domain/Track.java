@@ -10,11 +10,12 @@ import javax.persistence.Id;
 
 // entity class to map with a relation
 @Entity
+// using annotations to create getter setter and constructors
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Track { 
+public class Track {
 
     // properties of track
     // id is the identity field

@@ -1,16 +1,17 @@
 package com.stackroute.muzix.exception;
 
-public class TrackNotFoundExeption extends Exception {
+// class for creating custom exception if the track is not found
+public class TrackNotFoundException extends Exception {
 
     // property of trackNotFoundException
     private String message;
 
     // no-parameter constructor
-    public TrackNotFoundExeption() {
+    public TrackNotFoundException() {
     }
 
     // parameterised constructor
-    public TrackNotFoundExeption(String message) {
+    public TrackNotFoundException(String message) {
         super(message);
         this.message=message;
     }

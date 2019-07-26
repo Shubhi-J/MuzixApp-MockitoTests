@@ -1,8 +1,9 @@
 package com.stackroute.muzix.exception;
 
+// class for creating custom exception if the track already exists
 public class TrackAlreadyExistException extends Exception {
 
-    // property of trackAlraedyExistException
+    // property of trackAlreadyExistException
     private String message;
 
     // no-parameter constructor
