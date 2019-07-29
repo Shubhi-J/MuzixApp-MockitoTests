@@ -30,10 +30,14 @@ public class TrackController extends GlobalExceptionHandler {
     @PostMapping("/track")
     public ResponseEntity<?> saveTrack(@RequestBody Track track) throws TrackAlreadyExistException{
         ResponseEntity responseEntity;
-          // save track
-          trackService.saveTrack(track);
-          responseEntity=new ResponseEntity<String>("Successfully saved", HttpStatus.CREATED);
-        // return result
+        try {
+            // save track
+            trackService.saveTrack(track);
+            responseEntity = new ResponseEntity<String>("Successfully saved", HttpStatus.CREATED);
+        } catch (TrackAlreadyExistException e){
+            responseEntity = new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
+        }
+          // return result
         return responseEntity;
     }
 
